@@ -5,3 +5,16 @@
 body {
     @apply bg-slate-100
 }
+
+table {
+    border-spacing: 0 0.5rem;
+}
+
+table tbody tr {
+    @apply rounded-xl
+}
+
+
+.ReactModal__Overlay {
+    background: rgba(0,0,0, 0.5);
+}
