@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Dashboard } from './components/Dashboard';
 import { Header } from './components/Header';
 import './index.css';
 import { TransactionModal } from './components/TransactionModal';
+import { TransactionsProvider } from './TransactionsContext';
 
 export function App() {
   const [isTransactionModalOpen, setIsTransactionModalOpen] = useState(false);
@@ -16,7 +17,7 @@ export function App() {
   }
 
   return (
-    <>
+    <TransactionsProvider>
       <Header onOpenModal={handleOpenTransactionModalOpen} />
       <Dashboard />
 
@@ -24,6 +25,6 @@ export function App() {
         isOpen={isTransactionModalOpen}
         onRequestClose={handleCloseTransactionModal}
       />
-    </>
+    </TransactionsProvider>
   );
 }

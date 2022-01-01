@@ -1,6 +1,7 @@
-import { FormEvent, useState } from 'react';
+import { FormEvent, useState, useContext } from 'react';
 import Modal from 'react-modal';
 import { api } from '../../services/axios';
+import { TransactionsContext } from '../../TransactionsContext';
 
 interface TransactionModalProps {
   isOpen: boolean;
@@ -11,20 +12,17 @@ export function TransactionModal({
   isOpen,
   onRequestClose,
 }: TransactionModalProps) {
+  const { createTransaction } = useContext(TransactionsContext);
   const [title, setTitle] = useState('');
   const [category, setCategory] = useState('');
   const [value, setValue] = useState(0);
 
-  function handleCreateNewTransaction(event: FormEvent) {
+  async function handleCreateNewTransaction(event: FormEvent) {
     event.preventDefault();
 
-    const data = {
-      title,
-      category,
-      value,
-    };
+    await createTransaction({ title, category, value });
 
-    api.post('transactions', data);
+    onRequestClose();
   }
 
   return (

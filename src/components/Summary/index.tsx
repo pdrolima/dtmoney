@@ -1,6 +1,8 @@
+import { useContext } from 'react';
 import income from '../../assets/income.svg';
 import outcome from '../../assets/outcome.svg';
 import total from '../../assets/total.svg';
+import { TransactionsContext } from '../../TransactionsContext';
 
 interface CardProps {
   title: string;
@@ -21,6 +23,8 @@ const Card = ({ title, image, value }: CardProps) => {
 };
 
 export function Summary() {
+  const { transactions } = useContext(TransactionsContext);
+
   return (
     <div className="max-w-7xl">
       <div className="grid grid-cols-3 gap-8 -mt-12 ">

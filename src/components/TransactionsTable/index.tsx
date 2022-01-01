@@ -1,23 +1,8 @@
-import { useEffect, useState } from 'react';
-import { api } from '../../services/axios';
-
-export interface Transaction {
-  id: number;
-  title: string;
-  category: string;
-  amount: number;
-  createdAt: string;
-}
+import { useContext } from 'react';
+import { TransactionsContext } from '../../TransactionsContext';
 
 export function TransactionsTable() {
-  const [transactions, setTransactions] = useState<Transaction[]>([]);
-
-  useEffect(() => {
-    // Fetch endpoint api transactions on port 3000
-    api.get('transactions').then((data) => {
-      setTransactions(data.data.transactions);
-    });
-  }, []);
+  const { transactions } = useContext(TransactionsContext);
 
   return (
     <div className="mt-16">
@@ -46,7 +31,7 @@ export function TransactionsTable() {
                 {new Intl.NumberFormat('pt-BR', {
                   style: 'currency',
                   currency: 'BRL',
-                }).format(transaction.amount)}
+                }).format(transaction.value)}
               </td>
               <td className="p-4 border-0 bg-white">{transaction.category}</td>
               <td className="p-4 border-0 bg-white">
